@@ -229,19 +229,19 @@
                         for(Track track : userTracks){
                             
                             DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-                            String finalDate = df.format(track.getTrackDateUpdated());
-                            String finalStartDate = df.format(track.getTrackStartdate());
+                            String finalDate = df.format(track.getUpdated());
+                            String finalStartDate = df.format(track.getStartdate());
                             
-                            out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackName() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackActivity().substring(4) + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + finalDate + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackAccess() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackLengthKm() + "</td>"); 
+                            out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getName() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getActivity().substring(4) + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + finalDate + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getAccess() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getLengthKm() + "</td>"); 
                             
-                            if(track.getTrackCreationType().equalsIgnoreCase("Parsed")) {
+                            if(track.getType().equalsIgnoreCase("Parsed")) {
                                 out.print("<td style=\"word-wrap: break-word;padding-top:12px;\">" + finalStartDate + "</td>");
                             } else {
                                 out.print("<td style=\"word-wrap: break-word;padding-top:12px;\"> NONE </td>");
                             }
                             
-                            out.print("<td class=\"text-center\"><a href=DeleteTrack.jsp?trkID=" + track.getTrackId() +  " class=\"btn btn-danger btn-sm \">Delete</a> &nbsp; &nbsp;");
-                            out.print("<a href=ShowTrack.jsp?trkID=" + track.getTrackId()+  " class=\"btn btn-success btn-sm \">Show</a></td>");
+                            out.print("<td class=\"text-center\"><a href=DeleteTrack.jsp?trkID=" + track.getIdent() +  " class=\"btn btn-danger btn-sm \">Delete</a> &nbsp; &nbsp;");
+                            out.print("<a href=ShowTrack.jsp?trkID=" + track.getIdent()+  " class=\"btn btn-success btn-sm \">Show</a></td>");
                             out.print("</tr>");
                         }
                         out.println("</tbody></table>");

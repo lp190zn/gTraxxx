@@ -43,14 +43,14 @@
 
 			for (Track track : tracks) {
 
-				String path = track.getTrackFile();
+				String path = track.getFile();
 				if (system.startsWith("Windows")) {
 					path = path.replaceAll("/", "\\\\");
 				}
 				out.println(path);
 
 				TLVLoader loader = new TLVLoader();
-				loader.readTLVFile(path, track.getTrackName());
+				loader.readTLVFile(path, track.getName());
 				ArrayList<FileImpl> files = loader.getMultimediaFiles();
 				System.out.println("Musim deletnut: " + files.size());
 
@@ -65,9 +65,9 @@
 				}
 
 				FileUtils.deleteDirectory(new File(path));
-				databaseServices.deleteTrack(track.getTrackId());
+				databaseServices.deleteTrack(track.getIdent());
 			}
-			boolean isErased = databaseServices.deleteUser(databaseServices.findUserByEmail(user).getUserId());
+			boolean isErased = databaseServices.deleteUser(databaseServices.findUserByEmail(user).getIdent());
 			String rootPath = null;
 			if (isErased) {
 

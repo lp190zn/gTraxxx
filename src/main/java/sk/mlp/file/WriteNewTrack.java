@@ -182,7 +182,7 @@ public class WriteNewTrack extends HttpServlet {
                 
                 DatabaseServices databaseServices = new DatabaseServices();
                 
-                databaseServices.createNewTrack(trackName, trackDescr, trackActivity, pathToFile, (int)databaseServices.findUserByEmail(session.getAttribute("username").toString()).getUserId(),
+                databaseServices.createNewTrack(trackName, trackDescr, trackActivity, pathToFile, (int)databaseServices.findUserByEmail(session.getAttribute("username").toString()).getIdent(),
                         (Date)parser.getStartAndEndDate().get(0), (Date)parser.getStartAndEndDate().get(1), access, parser.getStartAddress(), parser.getEndAddress(), parser.getTrackLengthKm(), parser.getTrackMinElevation(), parser.getTrackMaxElevation(), parser.getTrackHeightDiff(), parser.getTrackDuration(), "Drawed");
                 
                 TLVLoader loader = new TLVLoader();

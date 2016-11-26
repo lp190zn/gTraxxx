@@ -35,19 +35,19 @@
             int trkID = Integer.parseInt(request.getParameter("trkID"));
             
             DatabaseServices databaseServices = new DatabaseServices();
-            int userID = (int)databaseServices.findUserByEmail(session.getAttribute("username").toString()).getUserId();
+            int userID = (int)databaseServices.findUserByEmail(session.getAttribute("username").toString()).getIdent();
             Track track = databaseServices.findTrackById(trkID);
-            int realTrkID = (int)track.getUser().getUserId();
+            int realTrkID = (int)track.getUser().getIdent();
             
             if(realTrkID == userID){
-                String path = track.getTrackFile();
+                String path = track.getFile();
                     if (system.startsWith("Windows")) {
                         path = path.replaceAll("/", "\\\\");
                     }
                     out.println(path);
 
                     TLVLoader loader = new TLVLoader();
-                    loader.readTLVFile(path, track.getTrackFile());
+                    loader.readTLVFile(path, track.getFile());
                     ArrayList<FileImpl> files = loader.getMultimediaFiles();
                     System.out.println("Musim deletnut: " + files.size());
 

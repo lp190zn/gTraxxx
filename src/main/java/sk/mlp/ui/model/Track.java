@@ -2,7 +2,7 @@ package sk.mlp.ui.model;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.math.BigDecimal;
 import java.util.Date;
 
 
@@ -13,218 +13,220 @@ import java.util.Date;
 @Entity
 @Table(name="TRACKS")
 @NamedQuery(name="Track.findAll", query="SELECT t FROM Track t")
-
 public class Track implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-    @Id
-	@Column(name="TRACK_ID")
+	@Id
+	@Column(name="IDENT")
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "trackGen")
-    @SequenceGenerator(name = "trackGen", sequenceName = "GPSWEBAPP.TRACKS_SEQ", allocationSize=1)
+    @SequenceGenerator(name = "trackGen", sequenceName = "GTRAXXX.TRACKS_SEQ", allocationSize=1)
+	private long ident;
 
-	private long trackId;
+	@Column(name="\"ACCESS\"")
+	private String access;
 
-	@Column(name="TRACK_ACCESS")
-	private String trackAccess;
+	@Column(name="ACTIVITY")
+	private String activity;
 
-	@Column(name="TRACK_ACTIVITY")
-	private String trackActivity;
+	@Column(name="CREATED")
+	@Temporal(TemporalType.DATE)
+	private Date created;
 
-	@Column(name="TRACK_CREATION_TYPE")
-	private String trackCreationType;
+	@Column(name="DESCRIPTION")
+	private String description;
 
-	@Column(name="TRACK_DATE_CREATED")
-	private Date trackDateCreated;
+	@Column(name="DURATION")
+	private String duration;
 
-	@Column(name="TRACK_DATE_UPDATED")
-	private Date trackDateUpdated;
+	@Column(name="END_ADDRESS")
+	private String endAddress;
 
-	@Column(name="TRACK_DESCRIPTION")
-	private String trackDescription;
+	@Column(name="ENDDATE")
+	@Temporal(TemporalType.DATE)
+	private Date enddate;
 
-	@Column(name="TRACK_DURATION")
-	private String trackDuration;
+	@Column(name="\"FILE\"")
+	private String file;
 
-	@Column(name="TRACK_END_ADDRESS")
-	private String trackEndAddress;
+	@Column(name="LENGTH_KM")
+	private BigDecimal lengthKm;
 
-	@Column(name="TRACK_ENDDATE")
-	private Date trackEnddate;
+	@Column(name="MAX_ELEVATION")
+	private BigDecimal maxElevation;
 
-	@Column(name="TRACK_FILE")
-	private String trackFile;
+	@Column(name="MIN_ELEVATION")
+	private BigDecimal minElevation;
 
-	@Column(name="TRACK_HEIGHT_DIFF")
-	private String trackHeightDiff;
+	@Column(name="NAME")
+	private String name;
 
-	@Column(name="TRACK_LENGTH_KM")
-	private String trackLengthKm;
+	@Column(name="START_ADDRESS")
+	private String startAddress;
 
-	@Column(name="TRACK_MAX_ELEVATION")
-	private String trackMaxElevation;
+	@Column(name="STARTDATE")
+	@Temporal(TemporalType.DATE)
+	private Date startdate;
 
-	@Column(name="TRACK_MIN_ELEVATION")
-	private String trackMinElevation;
+	@Column(name="HEIGHT_DIFF")
+	private BigDecimal heightDiff;
 
-	@Column(name="TRACK_NAME")
-	private String trackName;
+	@Column(name="TYPE")
+	private String type;
 
-	@Column(name="TRACK_START_ADDRESS")
-	private String trackStartAddress;
-
-	@Column(name="TRACK_STARTDATE")
-	private Date trackStartdate;
+	@Column(name="UPDATED")
+	@Temporal(TemporalType.DATE)
+	private Date updated;
 
 	//bi-directional many-to-one association to User
 	@ManyToOne
-	@JoinColumn(name="TRACK_USER_ID")
+	@JoinColumn(name="USER_ID")
 	private User user;
 
 	public Track() {
 	}
 
-	public long getTrackId() {
-		return this.trackId;
+	public long getIdent() {
+		return this.ident;
 	}
 
-	public void setTrackId(long trackId) {
-		this.trackId = trackId;
+	public void setIdent(long ident) {
+		this.ident = ident;
 	}
 
-	public String getTrackAccess() {
-		return this.trackAccess;
+	public String getAccess() {
+		return this.access;
 	}
 
-	public void setTrackAccess(String trackAccess) {
-		this.trackAccess = trackAccess;
+	public void setAccess(String access) {
+		this.access = access;
 	}
 
-	public String getTrackActivity() {
-		return this.trackActivity;
+	public String getActivity() {
+		return this.activity;
 	}
 
-	public void setTrackActivity(String trackActivity) {
-		this.trackActivity = trackActivity;
+	public void setActivity(String activity) {
+		this.activity = activity;
 	}
 
-	public String getTrackCreationType() {
-		return this.trackCreationType;
+	public Date getCreated() {
+		return this.created;
 	}
 
-	public void setTrackCreationType(String trackCreationType) {
-		this.trackCreationType = trackCreationType;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-	public Date getTrackDateCreated() {
-		return this.trackDateCreated;
+	public String getDescription() {
+		return this.description;
 	}
 
-	public void setTrackDateCreated(Date trackDateCreated) {
-		this.trackDateCreated = trackDateCreated;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Date getTrackDateUpdated() {
-		return this.trackDateUpdated;
+	public String getDuration() {
+		return this.duration;
 	}
 
-	public void setTrackDateUpdated(Date trackDateUpdated) {
-		this.trackDateUpdated = trackDateUpdated;
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
-	public String getTrackDescription() {
-		return this.trackDescription;
+	public String getEndAddress() {
+		return this.endAddress;
 	}
 
-	public void setTrackDescription(String trackDescription) {
-		this.trackDescription = trackDescription;
+	public void setEndAddress(String endAddress) {
+		this.endAddress = endAddress;
 	}
 
-	public String getTrackDuration() {
-		return this.trackDuration;
+	public Date getEnddate() {
+		return this.enddate;
 	}
 
-	public void setTrackDuration(String trackDuration) {
-		this.trackDuration = trackDuration;
+	public void setEnddate(Date enddate) {
+		this.enddate = enddate;
 	}
 
-	public String getTrackEndAddress() {
-		return this.trackEndAddress;
+	public String getFile() {
+		return this.file;
 	}
 
-	public void setTrackEndAddress(String trackEndAddress) {
-		this.trackEndAddress = trackEndAddress;
+	public void setFile(String file) {
+		this.file = file;
 	}
 
-	public Date getTrackEnddate() {
-		return this.trackEnddate;
+	public BigDecimal getLengthKm() {
+		return this.lengthKm;
 	}
 
-	public void setTrackEnddate(Date trackEnddate) {
-		this.trackEnddate = trackEnddate;
+	public void setLengthKm(BigDecimal lengthKm) {
+		this.lengthKm = lengthKm;
 	}
 
-	public String getTrackFile() {
-		return this.trackFile;
+	public BigDecimal getMaxElevation() {
+		return this.maxElevation;
 	}
 
-	public void setTrackFile(String trackFile) {
-		this.trackFile = trackFile;
+	public void setMaxElevation(BigDecimal maxElevation) {
+		this.maxElevation = maxElevation;
 	}
 
-	public String getTrackHeightDiff() {
-		return this.trackHeightDiff;
+	public BigDecimal getMinElevation() {
+		return this.minElevation;
 	}
 
-	public void setTrackHeightDiff(String trackHeightDiff) {
-		this.trackHeightDiff = trackHeightDiff;
+	public void setMinElevation(BigDecimal minElevation) {
+		this.minElevation = minElevation;
 	}
 
-	public String getTrackLengthKm() {
-		return this.trackLengthKm;
+	public String getName() {
+		return this.name;
 	}
 
-	public void setTrackLengthKm(String trackLengthKm) {
-		this.trackLengthKm = trackLengthKm;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getTrackMaxElevation() {
-		return this.trackMaxElevation;
+	public String getStartAddress() {
+		return this.startAddress;
 	}
 
-	public void setTrackMaxElevation(String trackMaxElevation) {
-		this.trackMaxElevation = trackMaxElevation;
+	public void setStartAddress(String startAddress) {
+		this.startAddress = startAddress;
 	}
 
-	public String getTrackMinElevation() {
-		return this.trackMinElevation;
+	public Date getStartdate() {
+		return this.startdate;
 	}
 
-	public void setTrackMinElevation(String trackMinElevation) {
-		this.trackMinElevation = trackMinElevation;
+	public void setStartdate(Date startdate) {
+		this.startdate = startdate;
 	}
 
-	public String getTrackName() {
-		return this.trackName;
+	public BigDecimal getHeightDiff() {
+		return this.heightDiff;
 	}
 
-	public void setTrackName(String trackName) {
-		this.trackName = trackName;
+	public void setHeightDiff(BigDecimal trackHeightDiff) {
+		this.heightDiff = trackHeightDiff;
 	}
 
-	public String getTrackStartAddress() {
-		return this.trackStartAddress;
+	public String getType() {
+		return this.type;
 	}
 
-	public void setTrackStartAddress(String trackStartAddress) {
-		this.trackStartAddress = trackStartAddress;
+	public void setType(String type) {
+		this.type = type;
 	}
 
-	public Date getTrackStartdate() {
-		return this.trackStartdate;
+	public Date getUpdated() {
+		return this.updated;
 	}
 
-	public void setTrackStartdate(Date trackStartdate) {
-		this.trackStartdate = trackStartdate;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
 
 	public User getUser() {

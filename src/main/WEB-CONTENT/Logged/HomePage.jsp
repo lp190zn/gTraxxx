@@ -238,11 +238,11 @@
 											int i = 0;
                                             for (Track track : results) {  
                                             	i++;
-                                                String modifiedDate = track.getTrackDateUpdated().toGMTString();
+                                                String modifiedDate = track.getUpdated().toGMTString();
 
-                                                out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;padding-bottom:12px;\">" + (i) + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + modifiedDate + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getUser().getUserEmail() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackName() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackAccess() + "</td>"); 
-                                                if(track.getTrackAccess().equalsIgnoreCase("Public") || track.getUser().getUserEmail().equalsIgnoreCase(session.getAttribute("username").toString())){
-                                                    out.print("<td class=\"text-center\"><a href=ShowTrack.jsp?trkID=" + track.getTrackId() +  " class=\"btn btn-success btn-sm \">Show</a>");
+                                                out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;padding-bottom:12px;\">" + (i) + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + modifiedDate + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getUser().getEmail() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getName() + "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getAccess() + "</td>"); 
+                                                if(track.getAccess().equalsIgnoreCase("Public") || track.getUser().getEmail().equalsIgnoreCase(session.getAttribute("username").toString())){
+                                                    out.print("<td class=\"text-center\"><a href=ShowTrack.jsp?trkID=" + track.getIdent() +  " class=\"btn btn-success btn-sm \">Show</a>");
                                                 }
                                                 out.print("<td class=\"text-center\"></td></tr>");
 

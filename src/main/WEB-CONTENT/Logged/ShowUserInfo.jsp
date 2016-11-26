@@ -16,15 +16,15 @@
 
     String usrage, usractivity = null;
 
-     if (user.getUserAge()==-1) {
+     if (user.getAge()==0) {
          usrage = "";
-     } else {usrage = user.getUserAge().toString();}
+     } else {usrage = String.valueOf(user.getAge());}
      
  
      
-     if (user.getUserActivity() == null) {
+     if (user.getActivity() == null) {
          usractivity = "";
-     } else {usractivity = user.getUserActivity();}
+     } else {usractivity = user.getActivity();}
   
 %>
 <!DOCTYPE html>
@@ -132,19 +132,19 @@
                                         <div class="form-group">
                                           <label class="col-md-6 control-label col-sm-pad" style="color: red;" >Email</label>
                                           <div class="col-md-1 col-sm-pad">
-                                              <p class="form-control-static"><% out.print(user.getUserEmail());%></p>
+                                              <p class="form-control-static"><% out.print(user.getEmail());%></p>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <label class="col-md-6 control-label col-sm-pad">First name</label>
                                           <div class="col-md-1 col-sm-pad">
-                                            <p class="form-control-static"><% out.print(user.getUserFirstName());%></p>
+                                            <p class="form-control-static"><% out.print(user.getFirstName());%></p>
                                           </div>
                                         </div>
                                         <div class="form-group">
                                           <label class="col-md-6 control-label">Last name</label>
                                           <div>
-                                            <p class="col-md-1 form-control-static"><% out.print(user.getUserLastName());%></p>
+                                            <p class="col-md-1 form-control-static"><% out.print(user.getLastName());%></p>
                                           </div>
                                         </div>
                                         <div class="form-group">
@@ -162,7 +162,7 @@
                                         <div class="form-group">
                                           <label class="col-md-6 control-label">Account type</label>
                                           <div>
-                                            <p class="col-md-1 form-control-static"><% out.print(user.getUserStatus());%></p>
+                                            <p class="col-md-1 form-control-static"><% out.print(user.getRole());%></p>
                                           </div>
                                         </div>
                                         </form>

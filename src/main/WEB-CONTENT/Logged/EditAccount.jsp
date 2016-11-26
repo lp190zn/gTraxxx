@@ -62,10 +62,10 @@
         </script>    
            
         <% 
-        if (user.getUserActivity().equalsIgnoreCase("null")) {
+        if (user.getActivity().equalsIgnoreCase("null")) {
             
         } else {
-            out.print("<script> $( document ).ready(function() {$(\"div.mydiv select\").val(\"" + user.getUserActivity() + "\");}); </script>");
+            out.print("<script> $( document ).ready(function() {$(\"div.mydiv select\").val(\"" + user.getActivity() + "\");}); </script>");
         }
         %>
         
@@ -83,7 +83,7 @@
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
 					<h3 class="modal-title" id="myModalLabel">
-                                            <b>Incorrect current password!!!</b>
+                        <b>Incorrect current password!!!</b>
 					</h3>
 			</div>
 			<div class="modal-body">
@@ -226,16 +226,16 @@
                                             <form action="UpdateUser.jsp" name="form" class="form-signin" method="POST" accept-charset="Windows-1250">
                                                
                                                 <label for="email">Email</label>
-                                                <input type="email" name="Login" class="form-control" readonly value="<%out.print(user.getUserEmail());%>">
+                                                <input type="email" name="Login" class="form-control" readonly value="<%out.print(user.getEmail());%>">
                                                 <br>
                                                 <label for="First name">First name</label>
-                                                <input type="text" name="FirstName" class="form-control" placeholder="Your firstname" value="<%out.print(user.getUserFirstName());%>" >
+                                                <input type="text" name="FirstName" class="form-control" placeholder="Your firstname" value="<%out.print(user.getFirstName());%>" >
                                                 <br>
                                                 <label for="Last name">Last name</label>
-                                                <input type="text" name="LastName" class="form-control" placeholder="Your lastname" value="<%out.print(user.getUserLastName());%>">
+                                                <input type="text" name="LastName" class="form-control" placeholder="Your lastname" value="<%out.print(user.getLastName());%>">
                                                 <br>
                                                 <label for="Age">Age</label>
-                                                <input type="number" name="Age" class="form-control" placeholder="Age" min="1" value="<% if (user.getUserAge() == -1){} else out.print(user.getUserAge());%>">
+                                                <input type="number" name="Age" class="form-control" placeholder="Age" min="1" value="<% if (user.getAge() == 0){} else out.print(user.getAge());%>">
                                                 <br>
                                                 <label for="Activity">Activity</label>
                                                 <div class="mydiv">

@@ -23,8 +23,8 @@
 	int trkID = Integer.parseInt(request.getParameter("trkID"));
 	DatabaseServices databaseServices = new DatabaseServices();
 	Track track = databaseServices.findTrackById(trkID);
-	String path = track.getTrackFile();
-	String file = track.getTrackName();
+	String path = track.getFile();
+	String file = track.getName();
 
 	if (system.startsWith("Windows")) {
 		path = path.replaceAll("/", "\\\\");
@@ -595,7 +595,7 @@
 							<div class="col-md-3">
 
 								<%
-									String modifiedDate = track.getTrackDateUpdated().toGMTString();
+									String modifiedDate = track.getUpdated().toGMTString();
 								%>
 
 								<label for="TrackDesc">Track description</label>
@@ -629,28 +629,28 @@
 								<label for="StartDate">Start</label>
 								<h5>
 									<%
-										out.println(track.getTrackStartdate());
+										out.println(track.getStartdate());
 									%>
 								</h5>
 
 								<label for="EndDate">End</label>
 								<h5>
 									<%
-										out.println(track.getTrackEnddate());
+										out.println(track.getEnddate());
 									%>
 								</h5>
 
 								<label for="Privacy">Privacy</label>
 								<h5>
 									<%
-										out.println(track.getTrackAccess());
+										out.println(track.getAccess());
 									%>
 								</h5>
 
 								<label for="Uploaded">Uploaded</label>
 								<h5>
 									<%
-										out.println(track.getTrackDateCreated());
+										out.println(track.getCreated());
 									%>
 								</h5>
 

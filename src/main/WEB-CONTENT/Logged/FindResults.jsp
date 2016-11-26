@@ -214,25 +214,25 @@
 
 						for (Track track : results) {
 							DateFormat df1 = new SimpleDateFormat("dd.MM.yyyy HH:mm");
-							String finalDate = df1.format(track.getTrackDateUpdated());
-							String finalStartDate = df1.format(track.getTrackStartdate());
+							String finalDate = df1.format(track.getUpdated());
+							String finalStartDate = df1.format(track.getStartdate());
 
-							out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackName()
+							out.println("<tr><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getName()
 									+ "</td><td style=\"word-wrap: break-word;padding-top:12px;\">"
-									+ track.getUser().getUserEmail()
+									+ track.getUser().getEmail()
 									+ "</td><td style=\"word-wrap: break-word;padding-top:12px;\">"
-									+ track.getTrackActivity().substring(4)
+									+ track.getActivity().substring(4)
 									+ "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + finalDate
-									+ "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getTrackLengthKm()
+									+ "</td><td style=\"word-wrap: break-word;padding-top:12px;\">" + track.getLengthKm()
 									+ "</td>");
 
-							if (track.getTrackCreationType().equalsIgnoreCase("Parsed")) {
+							if (track.getType().equalsIgnoreCase("Parsed")) {
 								out.print("<td style=\"word-wrap: break-word;padding-top:12px;\">" + finalStartDate + "</td>");
 							} else {
 								out.print("<td style=\"word-wrap: break-word;padding-top:12px;\"> NONE </td>");
 							}
 
-							out.print("<td class=\"text-center\"><a href=ShowTrack.jsp?trkID=" + track.getTrackId()
+							out.print("<td class=\"text-center\"><a href=ShowTrack.jsp?trkID=" + track.getIdent()
 									+ " class=\"btn btn-success btn-sm \">Show</a></td>");
 							out.print("</tr>");
 						}

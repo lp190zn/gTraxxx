@@ -8,7 +8,7 @@
 
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
         <property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:xe" />
-        <property name="username" value="GPSWEBAPP" />
+        <property name="username" value="GTRAXXX" />
         <property name="password" value="adminp" />
     </bean>
 

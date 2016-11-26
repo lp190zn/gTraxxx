@@ -69,10 +69,10 @@ public class GPXParser {
     private String endAddress = "NONE";
     
     private String trackDuration = "NONE";
-    private String trackMaxElevation = "NONE";
-    private String trackMinElevation = "NONE";
-    private String trackHeightDiff = "NONE";
-    private String trackLengthKm = "NONE";
+    private int trackMaxElevation;
+    private int trackMinElevation;
+    private int trackHeightDiff;
+    private double trackLengthKm;
     
     private boolean isDrawed = false;
     
@@ -298,24 +298,25 @@ public class GPXParser {
                 trackSpeed = trackDetail.resolveTrackSpeed();
                 
                 org.w3c.dom.Element element2_4 = document.createElement("Track_Length_Km");
-                String tempLength = String.valueOf(trackDetail.resolveTrackLength());
-                trackLengthKm = tempLength.substring(0, tempLength.lastIndexOf(".") + 4);
-                element2_4.appendChild(document.createTextNode(trackLengthKm));
+                double tempLength = trackDetail.resolveTrackLength();
+                String tempLengthString = String.valueOf(tempLength);
+                trackLengthKm = tempLength;
+                element2_4.appendChild(document.createTextNode(tempLengthString.substring(0, tempLengthString.lastIndexOf(".") + 4)));
                 rootElement1.appendChild(element2_4);
                 
                 org.w3c.dom.Element element2_5 = document.createElement("Track_Max_Elevation");
-                trackMaxElevation = String.valueOf(trackDetail.resolveMaxElevation());
-                element2_5.appendChild(document.createTextNode(trackMaxElevation));
+                trackMaxElevation = trackDetail.resolveMaxElevation();
+                element2_5.appendChild(document.createTextNode(String.valueOf(trackMaxElevation)));
                 rootElement1.appendChild(element2_5);
                 
                 org.w3c.dom.Element element2_6 = document.createElement("Track_Min_Elevation");
-                trackMinElevation = String.valueOf(trackDetail.resolveMinElevation());
-                element2_6.appendChild(document.createTextNode(trackMinElevation));
+                trackMinElevation = trackDetail.resolveMinElevation();
+                element2_6.appendChild(document.createTextNode(String.valueOf(trackMinElevation)));
                 rootElement1.appendChild(element2_6);
                 
                 org.w3c.dom.Element element2_6_1 = document.createElement("Track_Height_Difference");
-                trackHeightDiff = String.valueOf(trackDetail.resolveTrackHeightDiff());
-                element2_6_1.appendChild(document.createTextNode(getTrackHeightDiff()));
+                trackHeightDiff = trackDetail.resolveTrackHeightDiff();
+                element2_6_1.appendChild(document.createTextNode(String.valueOf(getTrackHeightDiff())));
                 rootElement1.appendChild(element2_6_1);
                 
                 org.w3c.dom.Element element2_7 = document.createElement("Track_Duration");
@@ -593,24 +594,25 @@ public class GPXParser {
                 trackSpeed = trackDetail.resolveTrackSpeed();
                 
                 org.w3c.dom.Element element2_4 = document.createElement("Track_Length_Km");
-                String tempLength = String.valueOf(trackDetail.resolveTrackLength());
-                trackLengthKm = tempLength.substring(0, tempLength.lastIndexOf(".") + 4);
-                element2_4.appendChild(document.createTextNode(trackLengthKm));
+                double tempLength = trackDetail.resolveTrackLength();
+                String tempLengthString = String.valueOf(tempLength);
+                trackLengthKm = tempLength;
+                element2_4.appendChild(document.createTextNode(tempLengthString.substring(0, tempLengthString.lastIndexOf(".") + 4)));
                 rootElement1.appendChild(element2_4);
                 
                 org.w3c.dom.Element element2_5 = document.createElement("Track_Max_Elevation");
-                trackMaxElevation = String.valueOf(trackDetail.resolveMaxElevation());
-                element2_5.appendChild(document.createTextNode(trackMaxElevation));
+                trackMaxElevation = trackDetail.resolveMaxElevation();
+                element2_5.appendChild(document.createTextNode(String.valueOf(trackMaxElevation)));
                 rootElement1.appendChild(element2_5);
                 
                 org.w3c.dom.Element element2_6 = document.createElement("Track_Min_Elevation");
-                trackMinElevation = String.valueOf(trackDetail.resolveMinElevation());
-                element2_6.appendChild(document.createTextNode(trackMinElevation));
+                trackMinElevation = trackDetail.resolveMinElevation();
+                element2_6.appendChild(document.createTextNode(String.valueOf(trackMinElevation)));
                 rootElement1.appendChild(element2_6);
                 
                 org.w3c.dom.Element element2_6_1 = document.createElement("Track_Height_Difference");
-                trackHeightDiff = String.valueOf(trackDetail.resolveTrackHeightDiff());
-                element2_6_1.appendChild(document.createTextNode(getTrackHeightDiff()));
+                trackHeightDiff = trackDetail.resolveTrackHeightDiff();
+                element2_6_1.appendChild(document.createTextNode(String.valueOf(getTrackHeightDiff())));
                 rootElement1.appendChild(element2_6_1);
                 
                 org.w3c.dom.Element element2_7 = document.createElement("Track_Duration");
@@ -824,28 +826,28 @@ public class GPXParser {
     /**
      * @return Návratová hodnota je maximálna nadmorská výška danej trasy.
      */
-    public String getTrackMaxElevation() {
+    public int getTrackMaxElevation() {
         return trackMaxElevation;
     }
 
     /**
      * @return Návratová hodnota je minimálna nadmorská výška danej trasy.
      */
-    public String getTrackMinElevation() {
+    public int getTrackMinElevation() {
         return trackMinElevation;
     }
 
     /**
      * @return Návratová hodnota je vzdialenošt danej trasy v kilometroch.
      */
-    public String getTrackLengthKm() {
+    public double getTrackLengthKm() {
         return trackLengthKm;
     }
 
     /**
      * @return Návratová hodnota je výškové prevýšenie na danej trase.
      */
-    public String getTrackHeightDiff() {
+    public int getTrackHeightDiff() {
         return trackHeightDiff;
     }
 

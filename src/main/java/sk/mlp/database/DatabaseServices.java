@@ -1,5 +1,7 @@
 package sk.mlp.database;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
@@ -18,7 +20,7 @@ import sk.mlp.util.Constants;
 
 public class DatabaseServices {
 
-	private static final String PERSISTENCE_UNIT_NAME = "GPSWebApp";
+	private static final String PERSISTENCE_UNIT_NAME = "gTraxxxPU";
 	private static EntityManagerFactory entityManagerFactory;
 	
 	private static final String DEFAULT_HASH_ALGORITHM = "MD5";
@@ -37,13 +39,13 @@ public class DatabaseServices {
 		entityManager.getTransaction().begin();
 
 		User user = new User();
-		user.setUserEmail(email);
-		user.setUserFirstName(firstName);
-		user.setUserLastName(lastName);
-		user.setUserAge(Integer.valueOf(age));
-		user.setUserActivity(activity);
-		user.setUserPass(password);
-		user.setUserToken(userToken);
+		user.setEmail(email);
+		user.setFirstName(firstName);
+		user.setLastName(lastName);
+		user.setAge(Integer.valueOf(age));
+		user.setActivity(activity);
+		user.setPass(password);
+		user.setToken(userToken);
 
 		entityManager.persist(user);
 
@@ -55,8 +57,8 @@ public class DatabaseServices {
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
 
 		entityManager.getTransaction().begin();
-		String hashedPassword = hashPassword(DEFAULT_HASH_ALGORITHM, user.getUserPass());
-		user.setUserPass(hashedPassword);
+		String hashedPassword = hashPassword(DEFAULT_HASH_ALGORITHM, user.getPass());
+		user.setPass(hashedPassword);
 		entityManager.persist(user);
 
 		entityManager.getTransaction().commit();
@@ -80,7 +82,7 @@ public class DatabaseServices {
 	public User findUserByEmail(String email) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		List<User> users = entityManager.createQuery("SELECT c FROM User c WHERE c.userEmail LIKE :email")
+		List<User> users = entityManager.createQuery("SELECT c FROM User c WHERE c.email LIKE :email")
 				.setParameter("email", email).getResultList();
 		if (users.size() == 1) {
 			return Iterables.getOnlyElement(users);
@@ -88,10 +90,10 @@ public class DatabaseServices {
 			return null;
 		}
 	}
-
+	
 	public boolean isCorrectLogin(String username, String userpass) throws Exception {
 		User user = findUserByEmail(username);
-		if (user!=null && user.getUserPass().equals(userpass)) {
+		if (user!=null && user.getPass().equals(hashPassword(DEFAULT_HASH_ALGORITHM , userpass))) {
 			return true;
 		} else {
 			return false;
@@ -104,7 +106,7 @@ public class DatabaseServices {
 			DatabaseServices databaseServices = new DatabaseServices();
 			User user = databaseServices.findUserByEmail(newEmail);
 			boolean existing = user != null;
-			if (oldPassword.equals(user.getUserPass())) {
+			if (databaseServices.hashPassword(DatabaseServices.DEFAULT_HASH_ALGORITHM, oldPassword).equals(user.getPass())) {
 				if (!existing || currentEmail.equals(newEmail)) {
 
 					entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -112,12 +114,12 @@ public class DatabaseServices {
 
 					entityManager.getTransaction().begin();
 
-					user.setUserEmail(newEmail);
-					user.setUserFirstName(firstName);
-					user.setUserLastName(lastName);
-					user.setUserActivity(activity);
-					user.setUserAge(age);
-					user.setUserPass(newPassword);
+					user.setEmail(newEmail);
+					user.setFirstName(firstName);
+					user.setLastName(lastName);
+					user.setActivity(activity);
+					user.setAge(age);
+					user.setPass(hashPassword(DEFAULT_HASH_ALGORITHM, newPassword));
 					entityManager.merge(user);
 
 					entityManager.getTransaction().commit();
@@ -125,12 +127,12 @@ public class DatabaseServices {
 							+ " to new email " + newEmail + ".");
 					return 0;
 				} else {
-					FileLogger.getInstance().createNewLog("ERROR: User " + user.getUserEmail()
+					FileLogger.getInstance().createNewLog("ERROR: User " + user.getEmail()
 							+ " has entered existing new email!!! Cannot update user data!!!");
 					return 1;
 				}
 			} else {
-				FileLogger.getInstance().createNewLog("ERROR: User " + user.getUserEmail()
+				FileLogger.getInstance().createNewLog("ERROR: User " + user.getEmail()
 						+ " has entered wrong password!!! Cannot update user data!!!");
 				return 2;
 			}
@@ -145,8 +147,8 @@ public class DatabaseServices {
 		try {
 			DatabaseServices databaseServices = new DatabaseServices();
 			User user = databaseServices.findUserByEmail(email);
-			String userToken = user.getUserToken();
-			boolean isUserAccepted = user.getUserAccepted();
+			String userToken = user.getToken();
+			boolean isUserAccepted = user.getAccepted();
 
 			if (isUserAccepted != true && userToken.equals(token)) {
 				entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
@@ -154,7 +156,7 @@ public class DatabaseServices {
 
 				entityManager.getTransaction().begin();
 
-				user.setUserAccepted(true);
+				user.setAccepted(true);
 				entityManager.merge(user);
 				entityManager.getTransaction().commit();
 				FileLogger.getInstance().createNewLog("Successfuly ACCEPTED user " + email + ".");
@@ -172,8 +174,8 @@ public class DatabaseServices {
 	}
 
 	public void createNewTrack(String trackName, String trackDescr, String trackActivity, String trackPath, int userID,
-			Date startDate, Date endDate, String access, String startAddress, String endAddress, String length,
-			String minElevation, String maxElevation, String heightDiff, String duration, String creationType) {
+			Date startDate, Date endDate, String access, String startAddress, String endAddress, double length,
+			int minElevation, int maxElevation, int heightDiff, String duration, String creationType) {
 		try {
 			entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 			EntityManager entityManager = entityManagerFactory.createEntityManager();
@@ -185,23 +187,23 @@ public class DatabaseServices {
 
 			entityManager.getTransaction().begin();
 			Track track = new Track();
-			track.setTrackAccess(access);
-			track.setTrackActivity(trackActivity);
-			track.setTrackCreationType(creationType);
-			track.setTrackDateCreated(date);
-			track.setTrackDateUpdated(date);
-			track.setTrackDescription(trackDescr);
-			track.setTrackDuration(duration);
-			track.setTrackEndAddress(endAddress);
-			track.setTrackStartAddress(startAddress);
-			track.setTrackEnddate(endDate);
-			track.setTrackStartdate(startDate);
-			track.setTrackFile(filePath);
-			track.setTrackHeightDiff(heightDiff);
-			track.setTrackLengthKm(length);
-			track.setTrackMaxElevation(maxElevation);
-			track.setTrackMinElevation(minElevation);
-			track.setTrackName(trackName);
+			track.setAccess(access);
+			track.setActivity(trackActivity);
+			track.setType(creationType);
+			track.setCreated(date);
+			track.setUpdated(date);
+			track.setDescription(trackDescr);
+			track.setDuration(duration);
+			track.setEndAddress(endAddress);
+			track.setStartAddress(startAddress);
+			track.setEnddate(endDate);
+			track.setStartdate(startDate);
+			track.setFile(filePath);
+			track.setHeightDiff(new BigDecimal(heightDiff));
+			track.setLengthKm(BigDecimal.valueOf(length).setScale(3, RoundingMode.HALF_UP));
+			track.setMaxElevation(new BigDecimal(maxElevation));
+			track.setMinElevation(new BigDecimal(minElevation));
+			track.setName(trackName);
 			track.setUser(findUserById(userID));
 			entityManager.persist(track);
 
@@ -222,7 +224,7 @@ public class DatabaseServices {
 	public Track findTrackById(long id) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		List<Track> tracks = entityManager.createQuery("SELECT t FROM Track t WHERE t.id LIKE :id")
+		List<Track> tracks = entityManager.createQuery("SELECT t FROM Track t WHERE t.ident LIKE :id")
 				.setParameter("id", id).getResultList();
 		if (tracks.size() == 1) {
 			return Iterables.getOnlyElement(tracks);
@@ -235,7 +237,7 @@ public class DatabaseServices {
    public List<Track> findPattern(String pattern){
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		List<Track> tracks = entityManager.createQuery("SELECT t from Track t FULL JOIN t.user u where t.trackAccess='Public' AND(u.userEmail like :pattern OR t.trackName like :pattern OR t.trackDescription like :pattern OR t.trackActivity like :pattern OR t.trackStartAddress like :pattern OR t.trackEndAddress like :pattern)")
+		List<Track> tracks = entityManager.createQuery("SELECT t from Track t FULL JOIN t.user u where t.access='Public' AND(u.email like :pattern OR t.name like :pattern OR t.description like :pattern OR t.activity like :pattern OR t.startAddress like :pattern OR t.endAddress like :pattern)")
 				.setParameter("pattern", "%" + pattern + "%").getResultList();
 		return tracks;
    }
@@ -244,7 +246,7 @@ public class DatabaseServices {
    public List<Track> findNewNTracks(int rowCount){
 	   entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 		EntityManager entityManager = entityManagerFactory.createEntityManager();
-		List<Track> tracks = entityManager.createQuery("SELECT t from Track t WHERE t.trackAccess ='Public' order by t.trackDateCreated").setMaxResults(rowCount).getResultList();
+		List<Track> tracks = entityManager.createQuery("SELECT t from Track t WHERE t.access ='Public' order by t.created").setMaxResults(rowCount).getResultList();
        return tracks;
    }
    

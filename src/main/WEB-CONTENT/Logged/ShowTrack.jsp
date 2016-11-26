@@ -27,8 +27,8 @@
 	int trkID = Integer.parseInt(request.getParameter("trkID"));
 	DatabaseServices databaseServices = new DatabaseServices();
 	Track track = databaseServices.findTrackById(trkID);
-	String path = track.getTrackFile();
-	String file = track.getTrackName();
+	String path = track.getFile();
+	String file = track.getName();
 
 	if (system.startsWith("Windows")) {
 		path = path.replaceAll("/", "\\\\");
@@ -195,9 +195,9 @@
                                     }
                             }
                     
-            <%out.print("var creationType = \"" + track.getTrackCreationType() + "\";\n\n");
+            <%out.print("var creationType = \"" + track.getType() + "\";\n\n");
 
-			out.print("var trackType = \"" + track.getTrackActivity() + "\";\n\n");
+			out.print("var trackType = \"" + track.getActivity() + "\";\n\n");
 
 			out.print("var polylineCoordinatesList = [\n");
 			for (int i = 0; i < loader.getTrackPoints().size(); i++) {
@@ -1337,7 +1337,7 @@
 							<div class="col-md-3">
 
 								<%
-									String modifiedDate = track.getTrackDateUpdated().toGMTString();
+									String modifiedDate = track.getUpdated().toGMTString();
 								%>
 
 								<label for="TrackDesc"
@@ -1359,10 +1359,10 @@
 								</h6>
 
 								<!--                                    <label for="Privacy" style="font-size:13px; margin-bottom: 0px">Privacy</label>
-                                        <h6> <%out.println(track.getTrackAccess());%> </h6>
+                                        <h6> <%out.println(track.getAccess());%> </h6>
                                         
                                         <label for="Uploaded" style="font-size:13px; margin-bottom: 0px">Uploaded</label>
-                                        <h6> <%out.println(track.getTrackDateCreated());%> </h6>-->
+                                        <h6> <%out.println(track.getCreated());%> </h6>-->
 
 								<label for="StartPlace"
 									style="font-size: 13px; margin-bottom: 0px">Start place</label>
@@ -1385,7 +1385,7 @@
 									Length</label>
 								<h6>
 									<%
-										out.println(track.getTrackLengthKm());
+										out.println(track.getLengthKm());
 									%>
 									km
 								</h6>
@@ -1395,7 +1395,7 @@
 									Elevation</label>
 								<h6>
 									<%
-										out.println(track.getTrackMinElevation());
+										out.println(track.getMinElevation());
 									%>
 									m
 								</h6>
@@ -1405,7 +1405,7 @@
 									Elevation</label>
 								<h6>
 									<%
-										out.println(track.getTrackMaxElevation());
+										out.println(track.getMaxElevation());
 									%>
 									m
 								</h6>
@@ -1415,21 +1415,21 @@
 									Difference</label>
 								<h6>
 									<%
-										out.println(track.getTrackHeightDiff());
+										out.println(track.getHeightDiff());
 									%>
 									m
 								</h6>
 
 								<%
-									if (track.getTrackCreationType().equalsIgnoreCase("Parsed")) {
+									if (track.getType().equalsIgnoreCase("Parsed")) {
 										out.print("<label for=\"StartDate\" style=\"font-size:13px; margin-bottom: 0px\">Start</label><h6>");
-										out.print(track.getTrackStartdate());
+										out.print(track.getStartdate());
 										out.print("</h6>");
 										out.print("<label for=\"EndDate\" style=\"font-size:13px; margin-bottom: 0px\">End</label><h6>");
-										out.print(track.getTrackEnddate());
+										out.print(track.getEnddate());
 										out.print("</h6>");
 										out.print("<label for=\"Duration\" style=\"font-size:13px; margin-bottom: 0px\">Duration</label><h6>");
-										out.print(track.getTrackDuration());
+										out.print(track.getDuration());
 										out.print("</h6>");
 									}
 								%>
@@ -1712,7 +1712,7 @@
 								<br>
 
 								<%
-									String user = track.getUser().getUserEmail();
+									String user = track.getUser().getEmail();
 									String url = Constants.USER_DATA_STORAGE + user + "/" + file + "/" + file;
 								%>
 								<p class="help-block">You can download pdf file with

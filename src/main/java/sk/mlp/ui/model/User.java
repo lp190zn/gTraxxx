@@ -7,7 +7,6 @@ import org.hibernate.annotations.Type;
 
 import sk.mlp.util.Constants;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -22,127 +21,135 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="USER_ID")
+	@Column(name="IDENT")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userGen")
-    @SequenceGenerator(name = "userGen", sequenceName = "GPSWEBAPP.USERS_SEQ", allocationSize=1)
-	private long userId;
+    @SequenceGenerator(name = "userGen", sequenceName = "GTRAXXX.USERS_SEQ", allocationSize=1)
+	private long ident;
 
-	@Column(name="USER_ACCEPTED")
+	@Column(name="ACCEPTED")
 	@Type(type= "org.hibernate.type.NumericBooleanType")
-	private boolean userAccepted;
+	private boolean accepted;
 
-	@Column(name="USER_ACTIVITY")
-	private String userActivity;
+	@Column(name="ACTIVITY")
+	private String activity;
 
-	@Column(name="USER_AGE")
-	private Integer userAge;
+	@Column(name="AGE")
+	private Integer age;
 
-	@Column(name="USER_EMAIL")
-	private String userEmail;
+	@Column(name="EMAIL")
+	private String email;
 
-	@Column(name="USER_FIRST_NAME")
-	private String userFirstName;
+	@Column(name="FIRST_NAME")
+	private String firstName;
 
-	@Column(name="USER_LAST_NAME")
-	private String userLastName;
+	@Column(name="LAST_NAME")
+	private String lastName;
 
-	@Column(name="USER_PASS")
-	private String userPass;
+	@Column(name="PASS")
+	private String pass;
 
-	@Column(name="USER_STATUS")
-	private String userStatus = Constants.ApplicationRoles.USERS.getValue();
+	@Column(name="ROLE")
+	private String role = Constants.ApplicationRoles.USERS.getValue();
 
-	@Column(name="USER_TOKEN")
-	private String userToken;
-
-	//bi-directional many-to-one association to Track
-	@OneToMany(mappedBy="user")
-	private List<Track> tracks;
+	@Column(name="TOKEN")
+	private String token;
 	
 	@Transient
 	private String retypeUserPass;
 
+	//bi-directional many-to-one association to Track
+	@OneToMany(mappedBy="user")
+	private List<Track> tracks;
+
 	public User() {
 	}
 
-	public long getUserId() {
-		return this.userId;
+	public long getIdent() {
+		return this.ident;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setIdent(long ident) {
+		this.ident = ident;
 	}
 
-	public boolean getUserAccepted() {
-		return this.userAccepted;
+	public boolean getAccepted() {
+		return this.accepted;
 	}
 
-	public void setUserAccepted(boolean userAccepted) {
-		this.userAccepted = userAccepted;
+	public void setAccepted(boolean accepted) {
+		this.accepted = accepted;
 	}
 
-	public String getUserActivity() {
-		return this.userActivity;
+	public String getActivity() {
+		return this.activity;
 	}
 
-	public void setUserActivity(String userActivity) {
-		this.userActivity = userActivity;
+	public void setActivity(String activity) {
+		this.activity = activity;
 	}
 
-	public Integer getUserAge() {
-		return this.userAge;
+	public Integer getAge() {
+		return this.age;
 	}
 
-	public void setUserAge(Integer userAge) {
-		this.userAge = userAge;
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
-	public String getUserEmail() {
-		return this.userEmail;
+	public String getEmail() {
+		return this.email;
 	}
 
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getUserFirstName() {
-		return this.userFirstName;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setUserFirstName(String userFirstName) {
-		this.userFirstName = userFirstName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getUserLastName() {
-		return this.userLastName;
+	public String getLastName() {
+		return this.lastName;
 	}
 
-	public void setUserLastName(String userLastName) {
-		this.userLastName = userLastName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getUserPass() {
-		return this.userPass;
+	public String getPass() {
+		return this.pass;
 	}
 
-	public void setUserPass(String userPass) {
-		this.userPass = userPass;
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
-	public String getUserStatus() {
-		return this.userStatus;
+	public String getRole() {
+		return this.role;
 	}
 
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public String getUserToken() {
-		return this.userToken;
+	public String getToken() {
+		return this.token;
 	}
 
-	public void setUserToken(String userToken) {
-		this.userToken = userToken;
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public String getRetypeUserPass() {
+		return retypeUserPass;
+	}
+
+	public void setRetypeUserPass(String retypeUserPass) {
+		this.retypeUserPass = retypeUserPass;
 	}
 
 	public List<Track> getTracks() {
@@ -165,14 +172,6 @@ public class User implements Serializable {
 		track.setUser(null);
 
 		return track;
-	}
-
-	public String getRetypeUserPass() {
-		return retypeUserPass;
-	}
-
-	public void setRetypeUserPass(String retypeUserPass) {
-		this.retypeUserPass = retypeUserPass;
 	}
 
 }

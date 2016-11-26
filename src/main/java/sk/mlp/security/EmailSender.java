@@ -82,11 +82,11 @@ public class EmailSender {
             message.setFrom(new InternetAddress("skuska.api.3@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(email));
-            message.setSubject("Confirmation email from GPSWebApp server!!!");
+            message.setSubject("Confirmation email from gTraxxx app!!!");
             //message.setText(userToken);
-            message.setSubject("Confirmation email from GPSWebApp server!!!");
+            message.setSubject("Confirmation email from gTraxxx app!!!");
             if(system.startsWith("Windows")){
-                message.setContent("<html><head><meta charset=\"Windows-1250\"></head><body><h1>Hello " + name + " " + surname + ", please confirm your email by clicking on link ...</h1><a href=http://localhost:8080/GPSWebApp/TryToAcceptUser.jsp?token=" + userToken + "&email=" + email + ">LINK</a></body></html>","text/html");
+                message.setContent("<html><head><meta charset=\"Windows-1250\"></head><body><h1>Hello " + name + " " + surname + ", please confirm your email by clicking on link ...</h1><a href=http://localhost:8080/gTraxxx/TryToAcceptUser.jsp?token=" + userToken + "&email=" + email + ">LINK</a></body></html>","text/html");
             }else{
                 message.setContent("<html><head><meta charset=\"Windows-1250\"></head><body><h1>Hello " + name + " " + surname + ", please confirm your email by clicking on link ...</h1><a href=http://gps.kpi.fei.tuke.sk/TryToAcceptUser.jsp?token=" + userToken + "&email=" + email + ">LINK</a></body></html>","text/html");
             }
@@ -111,11 +111,11 @@ public class EmailSender {
             User user = databaseServices.findUserByEmail(email);
             String name = "NONE";
             String surname = "NONE";
-            if (user.getUserFirstName()!=null) {
-                name = user.getUserFirstName();
+            if (user.getFirstName()!=null) {
+                name = user.getFirstName();
             }
-            if (user.getUserLastName() != null) {
-                surname = user.getUserLastName();
+            if (user.getLastName() != null) {
+                surname = user.getLastName();
             }
             
             Properties props = new Properties();
@@ -140,7 +140,7 @@ public class EmailSender {
                 message.setSubject("Your password to GPSWebApp server!!!");
                 //message.setText(userToken);
                 message.setSubject("Your password to GPSWebApp server!!!");
-                message.setContent("<html><head><meta charset=\"Windows-1250\"></head><body><h1>Hello " + name + " " + surname + ",</h1><br>your paassword to access GPSWebApp server is <b>" + user.getUserPass() + "</b>. <br>Please take note that you can change it in your settings. Have a pleasant day.</body></html>", "text/html");
+                message.setContent("<html><head><meta charset=\"Windows-1250\"></head><body><h1>Hello " + name + " " + surname + ",</h1><br>your paassword to access GPSWebApp server is <b>" + user.getPass() + "</b>. <br>Please take note that you can change it in your settings. Have a pleasant day.</body></html>", "text/html");
 
                 Transport.send(message);
                 

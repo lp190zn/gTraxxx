@@ -74,17 +74,17 @@
 
 			<form action="#" th:action="@{/register}" th:object="${user}" method="post" name="form" class="form-signin" accept-charset="Windows-1250">
 				<h2 class="form-signin-heading">Registration form</h2>
-				<div ng-class="{'has-error': form.userEmail.$invalid, 'has-success': !form.userEmail.$invalid}">
-					<input type="email" name="Login" th:field="*{userEmail}" class="form-control" placeholder="Your email address (Required)" required="required" value="" ng-model="user.email"/>
+				<div ng-class="{'has-error': form.email.$invalid, 'has-success': !form.email.$invalid}">
+					<input type="email" name="Login" th:field="*{email}" class="form-control" placeholder="Your email address (Required)" required="required" value="" ng-model="user.email"/>
 				</div>
 				<br /> 
-				<input type="text" name="FirstName" th:field="*{userFirstName}" class="form-control" placeholder="Your firstname" value=""/> 
+				<input type="text" name="FirstName" th:field="*{firstName}" class="form-control" placeholder="Your firstname" value=""/> 
 				<br /> 
-				<input type="text" name="LastName" th:field="*{userLastName}" class="form-control" placeholder="Your lastname" value=""/>
+				<input type="text" name="LastName" th:field="*{lastName}" class="form-control" placeholder="Your lastname" value=""/>
 				<br /> 
-				<input type="number" name="Age" th:field="*{userAge}" class="form-control" placeholder="Age" value="" min="1"/> 
+				<input type="number" name="Age" th:field="*{age}" class="form-control" placeholder="Age" value="" min="1"/> 
 				<br />
-				<select name="Activity" class="form-control" th:field="*{userActivity}">
+				<select name="Activity" class="form-control" th:field="*{activity}">
 					<option value=" " disabled="disabled" selected="selected">Select your Activity</option>
 					<option value="Hiking">Hiking</option>
 					<option value="Climbing">Climbing</option>
@@ -102,8 +102,8 @@
 				</select> 
 				<br />
 
-				<div id="1" name="1" ng-class="{'has-error': !form.userPass.$valid,  'has-success': form.userPass.$valid}">
-					<input type="password" id="Pass" name="Pass" th:field="*{userPass}" class="form-control" placeholder="Your password (Required)" required="required" value="" ng-model="Pass"/>
+				<div id="1" name="1" ng-class="{'has-error': !form.pass.$valid,  'has-success': form.pass.$valid}">
+					<input type="password" id="Pass" name="Pass" th:field="*{pass}" class="form-control" placeholder="Your password (Required)" required="required" value="" ng-model="Pass"/>
 				</div>
 				<br />
 				<div id="2" name="2" ng-class="{'has-error': form.retypeUserPass.$error.pwmatch || !form.retypeUserPass.$valid, 'has-success': !form.retypeUserPass.$error.pwmatch &amp;&amp; form.retypeUserPass.$valid}" 	ng-controller="stageController">

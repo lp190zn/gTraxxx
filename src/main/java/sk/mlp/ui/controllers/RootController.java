@@ -73,7 +73,7 @@ public class RootController {
 			return "redirect:/login";
 		}
 		databaseServices = new DatabaseServices();
-		boolean isUserAccepted = databaseServices.findUserByEmail(username).getUserAccepted();
+		boolean isUserAccepted = databaseServices.findUserByEmail(username).getAccepted();
 
 		if (!isUserAccepted) {
 			session.setAttribute("notActive", true);
@@ -102,14 +102,14 @@ public class RootController {
 	@RequestMapping(value = "register", method = RequestMethod.POST)
 	public String doCreateUser(@ModelAttribute User user, Model model, final HttpServletRequest request, final HttpSession session, final RedirectAttributes redirect) throws Exception {
 
-		if (!Strings.isNullOrEmpty(user.getUserPass()) && !Strings.isNullOrEmpty(user.getRetypeUserPass()) && user.getUserPass().equals(user.getRetypeUserPass())) {
+		if (!Strings.isNullOrEmpty(user.getPass()) && !Strings.isNullOrEmpty(user.getRetypeUserPass()) && user.getPass().equals(user.getRetypeUserPass())) {
 			DatabaseServices databaseServices = new DatabaseServices();
-			User existingUser = databaseServices.findUserByEmail(user.getUserEmail());
+			User existingUser = databaseServices.findUserByEmail(user.getEmail());
 			if (existingUser == null) {
 				EmailSender sender = new EmailSender("smtp.gmail.com", "skuska.api.3", "skuskaapi3");
 				String token = sender.getNewUserToken();
-				user.setUserToken(token);
-				sender.sendUserAuthEmail(user.getUserEmail(), token, user.getUserFirstName(), user.getUserLastName());
+				user.setToken(token);
+				sender.sendUserAuthEmail(user.getEmail(), token, user.getFirstName(), user.getLastName());
 				databaseServices.createNewUser(user);
 				redirect.addFlashAttribute("justRegistered", true);
 				return "redirect:/login";

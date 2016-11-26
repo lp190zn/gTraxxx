@@ -40,12 +40,11 @@
 
 
 	<jdbc-user-service id="dbUserDetailsService" data-source-ref="dataSource"
-		users-by-username-query="select user_email, user_pass, 1 from gpswebapp.users where user_email=?"
-		authorities-by-username-query="select user_email, user_status from gpswebapp.users where user_email=?" 
+		users-by-username-query="select email, pass, 1 from gtraxxx.users where email=?"
+		authorities-by-username-query="select email, role from gtraxxx.users where email=?" 
 	/>
 
 	<user-service id="inMemoryUserDetailsService">
-		<user name="radan" password="radanp" authorities="ROLE_USER" />
 		<user name="lubo" password="lubop" authorities="ROLE_USER" />
 	</user-service>
 
