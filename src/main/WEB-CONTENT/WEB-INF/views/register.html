@@ -3,24 +3,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta name="description" content=""/>
-<meta name="author" content=""/>
-
-<title>Register page</title>
-
-<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-<link th:href="@{/css/bootstrap.css}" rel="stylesheet"></link>
-<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-<link th:href="@{/css/stylish-portfolio.css}" rel="stylesheet"></link>
-
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
-
-
-
-<script th:inline="javascript"> /*<![CDATA[*/
-        
+	<th:block th:include="layout/head.html :: frag('Register page')"/>
+	<script th:inline="javascript"> /*<![CDATA[*/
+	        
         var app = angular.module('myapp', []); 
         'use strict';
         angular.module('myApp', ['myApp.directives']);
@@ -37,7 +22,6 @@
                 var firstPassword = '#' + attrs.pwCheck;
                     elem.add(firstPassword).on('keyup', function () {
                     scope.$apply(function () {
-                    // console.info(elem.val() === $(firstPassword).val());
                     ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
                     });
                 });
@@ -45,7 +29,8 @@
         }
         }]);
 
-        /*]]>*/ </script>
+        /*]]>*/ 
+	   </script>
 </head>
 
 <body ng-app="myApp">

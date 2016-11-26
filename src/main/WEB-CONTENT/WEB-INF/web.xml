@@ -90,22 +90,7 @@
             30
         </session-timeout>
     </session-config>
-<!--<welcome-file-list>
-        <welcome-file>LoginPage.jsp</welcome-file>
-    </welcome-file-list>
-    <filter>
-        <filter-name>SessionCheck</filter-name>
-        <filter-class>
-            sk.mlp.filter.SessionCheck
-        </filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>SessionCheck</filter-name>
-        <url-pattern>/Logged/*</url-pattern>
-    </filter-mapping> -->
-    
-    
-    
+   
     
     <filter>
 		<filter-name>springSecurityFilterChain</filter-name>

@@ -2,22 +2,8 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<meta name="description" content=""/>
-	<meta name="author" content="Fali"/>
-
-	<title>Login Page</title>
-  
-  	<script type="text/javascript" 	th:src="@{/js/jquery.min.js}"></script>
-	<link th:href="@{/css/bootstrap.css}" rel="stylesheet"></link>
-	<link th:href="@{/css/stylish-portfolio.css}" rel="stylesheet"></link>
-	<script type="text/javascript" 	th:src="@{/js/bootstrap.min.js}"></script>
-
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.js"></script>
+	<th:block th:include="layout/head.html :: frag('Login page')"/>
 	<script th:inline="javascript"> /*<![CDATA[*/ var app = angular.module('myapp', []); /*]]>*/ </script>
-	<!-- Add custom CSS here -->
-
 </head>
 <body ng-app="myapp">
 	
