@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.common.base.Strings;
 
 import sk.mlp.database.DatabaseServices;
+import sk.mlp.database.DatabaseServicesRepository;
 import sk.mlp.security.EmailSender;
 import sk.mlp.ui.model.User;
 import sk.mlp.util.AuthUtils;
@@ -29,13 +30,14 @@ import sk.mlp.util.DateEditor;
 @Controller
 @RequestMapping(value = "/")
 public class RootController {
+	
+	@Autowired
+	private DatabaseServicesRepository databaseServicesRepo;
 
 	@InitBinder
 	public void initBinder(final WebDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new DateEditor());
 	}
-
-	private DatabaseServices databaseServices;
 
 	@RequestMapping(value = { "" }, method = RequestMethod.GET)
 	public String welcome() throws Exception {
@@ -72,8 +74,7 @@ public class RootController {
 			redirect.addFlashAttribute("failed", true);
 			return "redirect:/login";
 		}
-		databaseServices = new DatabaseServices();
-		boolean isUserAccepted = databaseServices.findUserByEmail(username).getAccepted();
+		boolean isUserAccepted = databaseServicesRepo.findUserByEmail(username).getAccepted();
 
 		if (!isUserAccepted) {
 			session.setAttribute("notActive", true);

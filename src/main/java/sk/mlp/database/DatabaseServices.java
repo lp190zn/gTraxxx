@@ -10,6 +10,11 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceContextType;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Iterables;
 
@@ -18,12 +23,16 @@ import sk.mlp.ui.model.Track;
 import sk.mlp.ui.model.User;
 import sk.mlp.util.Constants;
 
+@Transactional
 public class DatabaseServices {
 
-	private static final String PERSISTENCE_UNIT_NAME = "gTraxxxPU";
+	private static final String PERSISTENCE_UNIT_NAME = "gTraxxxPULegacy";
 	private static EntityManagerFactory entityManagerFactory;
 	
 	private static final String DEFAULT_HASH_ALGORITHM = "MD5";
+	
+    @PersistenceContext(unitName = "gTraxxxPULegacy", type = PersistenceContextType.TRANSACTION)
+    private EntityManager entityManager;
 
 	public User findUserById(Integer id) {
 		entityManagerFactory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);

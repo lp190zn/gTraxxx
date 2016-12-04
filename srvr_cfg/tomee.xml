@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tomee>
+  <!-- see http://tomee.apache.org/containers-and-resources.html -->
+
+  <!-- activate next line to be able to deploy applications in apps -->
+  <!-- <Deployments dir="apps" /> -->
+
+
+  <Resource id="gTraxxxDS" type="javax.sql.DataSource">
+    jdbcDriver = oracle.jdbc.driver.OracleDriver
+    jdbcUrl = jdbc:oracle:thin:@127.0.0.1:1521:xe
+    jtaManaged = true
+    maxWaitTime = -1 millisecond
+    userName = GTRAXXX
+    password = adminp
+    passwordCipher = PlainText
+</Resource>
+
+<TransactionManager id="TransactionManager" type="TransactionManager">
+</TransactionManager>
+
+
+</tomee>

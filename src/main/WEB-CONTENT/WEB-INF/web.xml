@@ -33,10 +33,10 @@
         <servlet-name>SubmitDrawTrack</servlet-name>
         <servlet-class>sk.mlp.file.SubmitDrawTrack</servlet-class>
     </servlet>
-    <servlet>
+ <!--<servlet>
         <servlet-name>Find</servlet-name>
         <servlet-class>Find.Find</servlet-class>
-    </servlet>
+    </servlet> -->
     <servlet>
         <servlet-name>ClearFileLog</servlet-name>
         <servlet-class>sk.mlp.logger.ClearFileLog</servlet-class>
@@ -73,10 +73,10 @@
         <servlet-name>SubmitDrawTrack</servlet-name>
         <url-pattern>/Logged/SubmitDrawTrack</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
+<!--<servlet-mapping>
         <servlet-name>Find</servlet-name>
         <url-pattern>/Logged/Find</url-pattern>
-    </servlet-mapping>
+    </servlet-mapping> -->
     <servlet-mapping>
         <servlet-name>ClearFileLog</servlet-name>
         <url-pattern>/Logged/ClearFileLog</url-pattern>
@@ -109,7 +109,6 @@
 		<param-value>
 			classpath:spring/app-config.xml,
 			classpath:spring/sec-config.xml
-			classpath:spring/db-config.xml
 		</param-value>
 	</context-param>
 
@@ -118,7 +117,10 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>classpath:spring/mvc-config.xml</param-value>
+			<param-value>
+				classpath:spring/mvc-config.xml,
+				classpath:spring/app-config.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
